@@ -24,10 +24,17 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
+const followersArray = ['namistarr', 'Fullmetal235', 'Boltsnut24', 'tetondan','dustinmyers','justsml','luishrd','bigknell'];
 
 followersArray.forEach(follower => {
   axios.get(`https://api.github.com/users/${follower}`)
+    .then(response => {
+      console.log(response);
+      allCards.appendChild(newCard(response.data));
+    })
+    .catch(error => {
+      console.log('Error');
+    })
 })
 
 /* Step 3: Create a function that accepts a single object as its only argument,
@@ -99,11 +106,12 @@ function newCard(response) {
   address.href = response.html_url;
   name.textContent = response.name;
   userName.textContent = response.login;
-  location.textContent = response.location;
-  address.textContent = response.html_url;
-  followersNum.textContent = response.followers;
-  followingNum.textContent = response.following;
-  bio.textContent = response.bio;
+  location.textContent = `Location: ${response.location}`;
+  profile.textContent = `Profile: `
+  address.textContent = response.html_url
+  followersNum.textContent = `Followers: ${response.followers}`;
+  followingNum.textContent = `Following: ${response.following}`;
+  bio.textContent = `Bio: ${response.bio}`;
 
   //put together
   card.appendChild(userImg);
