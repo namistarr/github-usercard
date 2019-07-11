@@ -24,7 +24,18 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['namistarr', 'Fullmetal235', 'Boltsnut24', 'tetondan','dustinmyers','justsml','luishrd','bigknell'];
+
+followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
+    .then(response => {
+      console.log(response);
+      allCards.appendChild(newCard(response.data));
+    })
+    .catch(error => {
+      console.log('Error');
+    })
+})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,3 +64,66 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+
+// step 1 & 2
+axios.get(`https://api.github.com/users/namistarr`)
+
+.then(function (response) {
+  return newCard(response);  
+})
+.catch(function (error) {
+  console.log(error);
+})
+
+
+const allCards = document.querySelector('.cards');
+
+//step 3
+function newCard(response) {
+  //create elements
+  const card = document.createElement('div');
+  const userImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const address = document.createElement('a');
+  const followersNum = document.createElement('p');
+  const followingNum = document.createElement('p');
+  const bio = document.createElement('p');
+
+  //set class names
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+  
+
+  //set content
+  userImg.src = response.avatar_url;
+  address.href = response.html_url;
+  name.textContent = response.name;
+  userName.textContent = response.login;
+  location.textContent = `Location: ${response.location}`;
+  profile.textContent = `Profile: `
+  address.textContent = response.html_url
+  followersNum.textContent = `Followers: ${response.followers}`;
+  followingNum.textContent = `Following: ${response.following}`;
+  bio.textContent = `Bio: ${response.bio}`;
+
+  //put together
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followersNum);
+  cardInfo.appendChild(followingNum);
+  cardInfo.appendChild(bio);
+  profile.appendChild(address);
+
+  return card;
+}
