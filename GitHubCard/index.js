@@ -24,7 +24,11 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
+
+followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
+})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -56,10 +60,10 @@ const followersArray = [];
 
 
 // step 1 & 2
-axios.get('https://api.github.com/users/namistarr')
+axios.get(`https://api.github.com/users/namistarr`)
 
 .then(function (response) {
-  console.log(response);
+  return newCard(response);  
 })
 .catch(function (error) {
   console.log(error);
@@ -69,7 +73,7 @@ axios.get('https://api.github.com/users/namistarr')
 const allCards = document.querySelector('.cards');
 
 //step 3
-function newCard() {
+function newCard(response) {
   //create elements
   const card = document.createElement('div');
   const userImg = document.createElement('img');
@@ -85,19 +89,21 @@ function newCard() {
 
   //set class names
   card.classList.add('card');
+  cardInfo.classList.add('card-info');
   name.classList.add('name');
   userName.classList.add('username');
-  cardInfo.classList.add('card-info');
+  
+
   //set content
-  userImg.src = 
-  address.href = 
-  name.textContent = 
-  userName.textContent = 
-  location.textContent = 
-  address.textContent = 
-  followersNum.textContent = 
-  followingNum.textContent = 
-  bio.textContent = 
+  userImg.src = response.avatar_url;
+  address.href = response.html_url;
+  name.textContent = response.name;
+  userName.textContent = response.login;
+  location.textContent = response.location;
+  address.textContent = response.html_url;
+  followersNum.textContent = response.followers;
+  followingNum.textContent = response.following;
+  bio.textContent = response.bio;
 
   //put together
   card.appendChild(userImg);
