@@ -53,3 +53,63 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+
+// step 1 & 2
+axios.get('https://api.github.com/users/namistarr')
+
+.then(function (response) {
+  console.log(response);
+})
+.catch(function (error) {
+  console.log(error);
+})
+
+
+const allCards = document.querySelector('.cards');
+
+//step 3
+function newCard() {
+  //create elements
+  const card = document.createElement('div');
+  const userImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const address = document.createElement('a');
+  const followersNum = document.createElement('p');
+  const followingNum = document.createElement('p');
+  const bio = document.createElement('p');
+
+  //set class names
+  card.classList.add('card');
+  name.classList.add('name');
+  userName.classList.add('username');
+  cardInfo.classList.add('card-info');
+  //set content
+  userImg.src = 
+  address.href = 
+  name.textContent = 
+  userName.textContent = 
+  location.textContent = 
+  address.textContent = 
+  followersNum.textContent = 
+  followingNum.textContent = 
+  bio.textContent = 
+
+  //put together
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followersNum);
+  cardInfo.appendChild(followingNum);
+  cardInfo.appendChild(bio);
+  profile.appendChild(address);
+
+  return card;
+}
